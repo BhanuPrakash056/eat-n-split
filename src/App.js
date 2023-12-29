@@ -1,4 +1,4 @@
-import './index.css';
+import "./index.css";
 
 const initialFriends = [
   {
@@ -24,9 +24,31 @@ const initialFriends = [
 function App() {
   return (
     <div className="App">
-      
+      <div className="sidebar">
+        <FriendList />
+      </div>
     </div>
   );
 }
 
+function FriendList() {
+  const friends = initialFriends;
+  return <ul>
+  {friends.map(friend => <Friend friend={friend} key={friend.id}/>)}
+  </ul>;
+}
+
+function Friend({friend}){
+
+  return (
+    <li>
+    <img src={friend.image} alt={friend.name} />
+    <h3>{friend.name}</h3>
+    {friend.balance < 0 && <p className="red">You Owe {Math.abs(friend.balance)}</p>}
+    {friend.balance > 0 && <p className="green">{friend.name} Owe  {Math.abs(friend.balance)}</p>}
+    {friend.balance === 0 && <p>you and {friend.name} are break even</p>}
+    <button className="button">Select</button>
+    </li>
+  )
+}
 export default App;
