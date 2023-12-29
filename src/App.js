@@ -1,3 +1,4 @@
+import { LanguageVariant } from "typescript";
 import "./index.css";
 
 const initialFriends = [
@@ -26,6 +27,8 @@ function App() {
     <div className="App">
       <div className="sidebar">
         <FriendList />
+        <FormAddFriend />
+        <Button>Add friend</Button>
       </div>
     </div>
   );
@@ -33,22 +36,47 @@ function App() {
 
 function FriendList() {
   const friends = initialFriends;
-  return <ul>
-  {friends.map(friend => <Friend friend={friend} key={friend.id}/>)}
-  </ul>;
+  return (
+    <ul>
+      {friends.map((friend) => (
+        <Friend friend={friend} key={friend.id} />
+      ))}
+    </ul>
+  );
 }
 
-function Friend({friend}){
-
+function Friend({ friend }) {
   return (
     <li>
-    <img src={friend.image} alt={friend.name} />
-    <h3>{friend.name}</h3>
-    {friend.balance < 0 && <p className="red">You Owe {Math.abs(friend.balance)}</p>}
-    {friend.balance > 0 && <p className="green">{friend.name} Owe  {Math.abs(friend.balance)}</p>}
-    {friend.balance === 0 && <p>you and {friend.name} are break even</p>}
-    <button className="button">Select</button>
+      <img src={friend.image} alt={friend.name} />
+      <h3>{friend.name}</h3>
+      {friend.balance < 0 && (
+        <p className="red">You Owe {Math.abs(friend.balance)}</p>
+      )}
+      {friend.balance > 0 && (
+        <p className="green">
+          {friend.name} Owe {Math.abs(friend.balance)}
+        </p>
+      )}
+      {friend.balance === 0 && <p>you and {friend.name} are break even</p>}
+      <Button>Select</Button>
     </li>
-  )
+  );
+}
+
+function FormAddFriend() {
+  return (
+    <form className="form-add-friend">
+      <label>👩‍👧 Friend name</label>
+      <input type="text" />
+      <label>🌅Image URL</label>
+      <input type="text" />
+      <Button>Add</Button>
+    </form>
+  );
+}
+
+function Button({ children }) {
+  return <button className="button">{children}</button>;
 }
 export default App;
